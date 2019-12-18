@@ -64,10 +64,10 @@ function displayLiffData() {
 	// document.getElementById('isInClient').textContent = liff.isInClient();
 
 	if (liff.isLoggedIn()) {
-		var jsonProfile = liff.getProfile();
+		var jsonProfile = JSON.parse(liff.getProfile());
 		console.log(jsonProfile);
 
-		document.getElementById('lineDisplayName').textContent = "Hi";
+		document.getElementById('lineDisplayName').textContent = "Hi, " + jsonProfile.displayName + "!";
 	}
 }
 
@@ -90,7 +90,7 @@ function displayIsInClientInfo() {
 function registerButtonHandlers() {
 	document.getElementById('openWindowButton').addEventListener('click', function() {
 		liff.openWindow({
-			url: 'https://submissionliff.herokuapp.com/', // Isi dengan Endpoint URL aplikasi web Anda
+			url: 'https://submissionliff.herokuapp.com/',
 			external: true
 		});
 	});
