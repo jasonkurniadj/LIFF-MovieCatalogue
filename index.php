@@ -70,40 +70,21 @@ $response = json_decode($response, true);
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href=""><?= $app_name; ?></a>
 
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active" id="liffIsLogout"><button class="nav-link btn" id="liffLoginButton">Login</button></li>
-				<li class="nav-item dropdown" id="liffIsLogin">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-						User
-					</a>
-					<div class="dropdown-menu pull-left" aria-labelledby="navbarDropdownMenuLink">
-						<button class="dropdown-item btn" id="openWindowButton">Open External Browser</button>
-						<button class="dropdown-item btn" id="closeWindowButton">Close LIFF App</button>
-						<button class="dropdown-item btn" id="sendMessageButton">Message</button>
-						<button class="dropdown-item btn" id="liffLogoutButton">Logout</button>
-					</div>
-				</li>
-			</ul>
-		</div>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item mx-1"><button id="liffLoginButton" class="btn btn-success btn-small">Log in</button></li>
+			<li class="nav-item mx-1"><button id="liffLogoutButton" class="btn btn-warning btn-small">Log out</button></li>
+		</ul>
 	</nav>
 
 	<div class="container">
-		<!--Konten LIFF v2-->
+		<div id="liffAppContent">
+			<h1 class="mt-3" id="lineDisplayName"></h1>
 
-        <div id="liffAppContent">
-			<!-- LIFF DATA -->
-			<div id="liffData">
-				<table>
-					<tr>
-						<th>isInClient: </th>
-						<td id="isInClient" class="textLeft"></td>
-					</tr>
-				</table>
+			<div class="buttonGroup">
+				<div class="buttonRow">
+					<button id="openWindowButton" class="btn btn-success btn-small">Open External Window</button>
+					<button id="closeWindowButton" class="btn btn-danger btn-small">Close LIFF App</button>
+				</div>
 			</div>
 
 			<div id="statusMessage" class="hidden">
@@ -118,7 +99,6 @@ $response = json_decode($response, true);
 			</div>
 		</div>
 
-		<!-- LIFF ID ERROR -->
 		<div id="liffIdErrorMessage" class="hidden">
 			<p>You have not assigned any value for LIFF ID.</p>
 			<p>If you are running the app using Node.js, please set the LIFF ID as an environment variable in your
@@ -145,11 +125,14 @@ $response = json_decode($response, true);
 			<p>Something went wrong with LIFF initialization.</p>
 			<p>LIFF initialization can fail if a user clicks "Cancel" on the "Grant permission" screen, or if an error occurs in the process of <code>liff.init()</code>.
 		</div>
+
+		<!-- NODE.JS LIFF ID ERROR -->
+		<div id="nodeLiffIdErrorMessage" class="hidden">
+			<p>Unable to receive the LIFF ID as an environment variable.</p>
+		</div>
 	</div>
 
 	<div class="container my-4">
-		<h3>Popular Movie</h3>
-		
 		<div class="row">
 			<?php
 			if(isset($response)) {
@@ -174,7 +157,7 @@ $response = json_decode($response, true);
 								<h4 class="mb-0"><?= $resp['title']; ?></h4>
 								<div class="d-flex">
 									<p class="card-text my-0 mr-3"><span class="card-rating">&starf;</span> <small><?= $resp['vote_average']; ?></small></p>
-									<button class="btn-sm btn-primary" onclick="sendMessage('<?= $resp['title']; ?>')"><small>Send Message</small></button>
+									<button class="btn-sm btn-primary" id="sendMessageButton" onclick="sendMessage('<?= $resp['title']; ?>')"><small>Send Message</small></button>
 								</div>
 								<p class="card-text"><?= $resp['overview']; ?></p>
 							</div>
