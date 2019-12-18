@@ -67,53 +67,54 @@ $response = json_decode($response, true);
 	<script type="text/javascript" src="liff-starter.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-dark bg-dark">
-		<span class="navbar-brand mb-0 h1"><?= $app_name; ?></span>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href=""><?= $app_name; ?></a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active" id="liffIsLogout"><button class="nav-link btn" id="liffLoginButton">Login</button></li>
+				<li class="nav-item dropdown" id="liffIsLogin">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+						User
+					</a>
+					<div class="dropdown-menu pull-left" aria-labelledby="navbarDropdownMenuLink">
+						<button class="dropdown-item btn" id="openWindowButton">Open External Browser</button>
+						<button class="dropdown-item btn" id="closeWindowButton">Close LIFF App</button>
+						<button class="dropdown-item btn" id="sendMessageButton">Message</button>
+						<button class="dropdown-item btn" id="liffLogoutButton">Logout</button>
+					</div>
+				</li>
+			</ul>
+		</div>
 	</nav>
 
 	<div class="container">
 		<!--Konten LIFF v2-->
- 
+
         <div id="liffAppContent">
-			<!-- ACTION BUTTONS -->
-			<div class="buttonGroup">
-				<div class="buttonRow">
-					<button id="openWindowButton" class="btn btn-success btn-small">Open External Window</button>
-					<button id="closeWindowButton" class="btn btn-danger btn-small">Close LIFF App</button>
-					<button id="sendMessageButton" class="btn btn-warning btn-small">Send Message</button>
-				</div>
-			</div>
- 
 			<!-- LIFF DATA -->
 			<div id="liffData">
-				<h3 id="liffDataHeader" class="textLeft">Informasi:</h3>
 				<table>
 					<tr>
-						<th>isInClient : </th>
+						<th>isInClient: </th>
 						<td id="isInClient" class="textLeft"></td>
-					</tr>
-					<tr>
-						<th>isLoggedIn : </th>
-						<td id="isLoggedIn" class="textLeft"></td>
 					</tr>
 				</table>
 			</div>
 
-			<!-- LOGIN LOGOUT BUTTONS -->
-			<div class="buttonGroup">
-				<button id="liffLoginButton" class="btn btn-success btn-small">Log in</button>
-				<button id="liffLogoutButton" class="btn btn-warning btn-small">Log out</button>
-			</div>
-
-			<div id="statusMessage">
-			<div id="isInClientMessage"></div>
-			<div id="apiReferenceMessage">
-				<p>Available LIFF methods vary depending on the browser you use to open the LIFF app.</p>
-				<!-- <p>Please refer to the
-					<a href="https://developers.line.biz/en/reference/liff/#initialize-liff-app">API reference page</a>
-					for more information.
-				</p> -->
-			</div>
+			<div id="statusMessage" class="hidden">
+				<div id="isInClientMessage"></div>
+				<div id="apiReferenceMessage">
+					<p>Available LIFF methods vary depending on the browser you use to open the LIFF app.</p>
+					<p>Please refer to the
+						<a href="https://developers.line.biz/en/reference/liff/#initialize-liff-app">API reference page</a>
+						for more information.
+					</p>
+				</div>
 			</div>
 		</div>
 
@@ -144,14 +145,11 @@ $response = json_decode($response, true);
 			<p>Something went wrong with LIFF initialization.</p>
 			<p>LIFF initialization can fail if a user clicks "Cancel" on the "Grant permission" screen, or if an error occurs in the process of <code>liff.init()</code>.
 		</div>
-
-		<!-- NODE.JS LIFF ID ERROR -->
-		<div id="nodeLiffIdErrorMessage" class="hidden">
-			<p>Unable to receive the LIFF ID as an environment variable.</p>
-		</div>
 	</div>
 
 	<div class="container my-4">
+		<h3>Popular Movie</h3>
+		
 		<div class="row">
 			<?php
 			if(isset($response)) {
@@ -174,7 +172,10 @@ $response = json_decode($response, true);
 
 							<div class="card-body">
 								<h4 class="mb-0"><?= $resp['title']; ?></h4>
-								<p class="card-text my-0"><span class="card-rating">&starf;</span> <small><?= $resp['vote_average']; ?></small></p>
+								<div class="d-flex">
+									<p class="card-text my-0 mr-3"><span class="card-rating">&starf;</span> <small><?= $resp['vote_average']; ?></small></p>
+									<button class="btn-sm btn-primary" onclick="sendMessage('<?= $resp['title']; ?>')"><small>Send Message</small></button>
+								</div>
 								<p class="card-text"><?= $resp['overview']; ?></p>
 							</div>
 						</div>
@@ -189,8 +190,5 @@ $response = json_decode($response, true);
 	<footer class="footer-copyright bg-dark text-center text-white py-2">
 		<small>&copy; 2019 <?= $app_name; ?></small>
 	</footer>
-
-	<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-	<script type="text/javascript" src="liff-starter.js"></script>
 </body>
 </html>
