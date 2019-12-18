@@ -64,10 +64,7 @@ function displayLiffData() {
 	// document.getElementById('isInClient').textContent = liff.isInClient();
 
 	if (liff.isLoggedIn()) {
-		var jsonProfile = liff.getProfile();
-		console.log(jsonProfile);
-
-		document.getElementById('lineDisplayName').textContent = "Hi, " + jsonProfile.displayName + "!";
+		document.getElementById('lineDisplayName').textContent = "Hi!";
 	}
 }
 
@@ -76,12 +73,12 @@ function displayLiffData() {
 */
 function displayIsInClientInfo() {
 	if (liff.isInClient()) {
-		document.getElementById('liffLoginButton').classList.toggle('hidden');
-		document.getElementById('liffLogoutButton').classList.toggle('hidden');
+		document.getElementById('liffLoginButton').classList.add('hidden');
+		document.getElementById('liffLogoutButton').classList.add('hidden');
 
 		document.getElementById('isInClientMessage').textContent = 'You are opening the app in the in-app browser of LINE.';
 	} else {
-		document.getElementById('sendMessageButton').classList.toggle('hidden');
+		document.getElementById('sendMessageButton').classList.add('hidden');
 		
 		document.getElementById('isInClientMessage').textContent = 'You are opening the app in an external browser.';
 	}
