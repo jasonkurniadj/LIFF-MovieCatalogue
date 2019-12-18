@@ -122,7 +122,7 @@ function registerButtonHandlers() {
 				'type': 'text',
 				'text': "Anda telah menggunakan fitur Send Message!"
 			}]).then(function() {
-				window.alert('Fitur Send Message');
+				window.alert("Hooray! You've successfully sent a message!");
 			}).catch(function(error) {
 				window.alert('Error sending message: ' + error);
 			});
