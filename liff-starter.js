@@ -64,7 +64,7 @@ function displayLiffData() {
 	// document.getElementById('isInClient').textContent = liff.isInClient();
 
 	if (liff.isLoggedIn()) {
-		var jsonProfile = liff.isInClient();
+		var jsonProfile = liff.getProfile();
 		console.log(jsonProfile);
 
 		document.getElementById('lineDisplayName').textContent = liff.isInClient();
@@ -103,21 +103,6 @@ function registerButtonHandlers() {
 			liff.closeWindow();
 		}
 	});
-
-	// document.getElementById('sendMessageButton').addEventListener('click', function() {
-	// 	if (!liff.isInClient()) {
-	// 		alert("Not in client.");
-	// 	} else {
-	// 		liff.sendMessages([{
-	// 			'type': 'text',
-	// 			'text': "You've successfully sent a message! Hooray!"
-	// 		}]).then(function() {
-	// 			window.alert('Message sent');
-	// 		}).catch(function(error) {
-	// 			window.alert('Error sending message: ' + error);
-	// 		});
-	// 	}
-	// });
 
 	document.getElementById('liffLoginButton').addEventListener('click', function() {
 		if (!liff.isLoggedIn()) {
