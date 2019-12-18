@@ -107,12 +107,28 @@ function registerButtonHandlers() {
 
 	document.getElementById('closeWindowButton').addEventListener('click', function() {
 		if (!liff.isInClient()) {
-			sendAlertIfNotInClient();
+// 			sendAlertIfNotInClient();
+			alert("Not in client.");
 		} else {
 			liff.closeWindow();
 		}
 	});
 
+	document.getElementById('sendMessageButton').addEventListener('click', function() {
+		if (!liff.isInClient()) {
+			alert("Not in Client.");
+		} else {
+			liff.sendMessages([{
+				'type': 'text',
+				'text': "Anda telah menggunakan fitur Send Message!"
+			}]).then(function() {
+				window.alert('Fitur Send Message');
+			}).catch(function(error) {
+				window.alert('Error sending message: ' + error);
+			});
+		}
+	});
+	
 	document.getElementById('liffLoginButton').addEventListener('click', function() {
 		if (!liff.isLoggedIn()) {
 			liff.login();
