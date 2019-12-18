@@ -67,7 +67,7 @@ function displayLiffData() {
 		var jsonProfile = liff.getProfile();
 		console.log(jsonProfile);
 
-		document.getElementById('lineDisplayName').textContent = liff.isInClient();
+		document.getElementById('lineDisplayName').textContent = "Hi";
 	}
 }
 
